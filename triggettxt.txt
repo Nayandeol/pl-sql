@@ -1,0 +1,71 @@
+SQL> create user u1 identified by admin1;
+
+User created.
+
+SQL> grant connect,resource to u1;
+
+Grant succeeded.
+SQL> exit;
+Disconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+CEC@user:~$ sqlplus u1 as sysdba
+
+SQL*Plus: Release 11.2.0.2.0 Production on Tue Apr 9 14:41:13 2024
+
+Copyright (c) 1982, 2011, Oracle.  All rights reserved.
+
+Enter user-name: u1
+Enter password: admin1
+
+Connected to:
+Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+SQL> create table customer(c_id int primary key,e_name varchar(15),salary int);
+
+Table created.
+
+SQL> desc customer;
+ Name					   Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ C_ID					   NOT NULL NUMBER(38)
+ E_NAME 					    VARCHAR2(15)
+ SALARY 					    NUMBER(38)
+
+SQL> @trigger.sql
+
+Trigger created.
+
+set serveroutput on
+
+SQL> insert into customer values('101','nayan','20000');
+
+1 row created.
+
+SQL> insert into customer values('102','anand','30000');
+
+1 row created.
+
+old salary
+new salary28000
+salary difference
+
+SQL> update customer set salary=3000 where c_id=101;
+old salary20000
+new salary3000
+salary difference-17000
+
+1 row updated.
+
+SQL> delete from customer where c_id=101;
+
+1 row deleted.
+
+SQL> select * from customer;
+
+      C_ID E_NAME	       SALARY
+---------- --------------- ----------
+       102 anand		30000
+       103 manu 		35000
+       104 vishnu		25000
+       105 vinod		28000
+
+
