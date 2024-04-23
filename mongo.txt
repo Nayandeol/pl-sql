@@ -1,0 +1,104 @@
+mongo
+
+> use lijith; //create database
+switched to db lijith
+
+
+> db; //display database
+lijith
+
+> db.dropDatabase(); //drop table
+{ "ok" : 1 }
+
+>db.createCollection("student"); //table creation
+{ "ok" : 1 }
+
+> show collections; //view table
+student
+
+
+> db.student.drop(); //drop table
+true
+
+> db.student.insert({"roll_no":1,"name":"arun"}); //insert into table
+WriteResult({ "nInserted" : 1 })
+
+> db.student.find(); //display
+{ "_id" : ObjectId("66277a1eb949cda5fc807314"), "roll_no" : 1, "name" : "arun" }
+{ "_id" : ObjectId("66277a42b949cda5fc807315"), "roll_no" : 2, "name" : "lijith" }
+
+
+> db.student.find().pretty(); //display in pretty manner
+{
+	"_id" : ObjectId("66277a1eb949cda5fc807314"),
+	"roll_no" : 1,
+	"name" : "arun"
+}
+{
+	"_id" : ObjectId("66277a42b949cda5fc807315"),
+	"roll_no" : 2,
+	"name" : "lijith"
+}
+
+
+> db.student.findOne(); //display first value
+{
+	"_id" : ObjectId("66277a1eb949cda5fc807314"),
+	"roll_no" : 1,
+	"name" : "arun"
+}
+
+
+> db.student.find().limit(3).skip(1); //skip 1st one and print next
+{ "_id" : ObjectId("66277a42b949cda5fc807315"), "roll_no" : 2, "name" : "lijith" }
+{ "_id" : ObjectId("66277b30b949cda5fc807316"), "roll_no" : 3, "name" : "nayan" }
+
+
+> db.student.update({"roll_no":1},{$set:{"name":"nahas"}}); //update value
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+
+> db.student.remove({"roll_no":5}); //delete value
+WriteResult({ "nRemoved" : 1 })
+
+
+> db.student.find().sort({"name":1}); //sort in ascending order
+{ "_id" : ObjectId("66277a42b949cda5fc807315"), "roll_no" : 2, "name" : "lijith" }
+{ "_id" : ObjectId("66277a1eb949cda5fc807314"), "roll_no" : 1, "name" : "nahas" }
+{ "_id" : ObjectId("66277b30b949cda5fc807316"), "roll_no" : 3, "name" : "nayan" }
+{ "_id" : ObjectId("66277c03b949cda5fc807317"), "roll_no" : 4, "name" : "sooryan" }
+
+
+> db.student.find().sort({"name":-1}); //sort in descending order
+{ "_id" : ObjectId("66277c03b949cda5fc807317"), "roll_no" : 4, "name" : "sooryan" }
+{ "_id" : ObjectId("66277b30b949cda5fc807316"), "roll_no" : 3, "name" : "nayan" }
+{ "_id" : ObjectId("66277a1eb949cda5fc807314"), "roll_no" : 1, "name" : "nahas" }
+{ "_id" : ObjectId("66277a42b949cda5fc807315"), "roll_no" : 2, "name" : "lijith" }
+
+
+> db.student.find({"roll_no":{$ne:2}}); //print values except 2
+{ "_id" : ObjectId("66277a1eb949cda5fc807314"), "roll_no" : 1, "name" : "nahas" }
+{ "_id" : ObjectId("66277b30b949cda5fc807316"), "roll_no" : 3, "name" : "nayan" }
+{ "_id" : ObjectId("66277c03b949cda5fc807317"), "roll_no" : 4, "name" : "sooryan" }
+
+
+> db.student.find({"roll_no":{$gt:2}}); //print values greater than 2
+{ "_id" : ObjectId("66277b30b949cda5fc807316"), "roll_no" : 3, "name" : "nayan" }
+{ "_id" : ObjectId("66277c03b949cda5fc807317"), "roll_no" : 4, "name" : "sooryan" }
+
+
+
+> db.student.find({"roll_no":{$lt:2}}); //print values less than 2
+{ "_id" : ObjectId("66277a1eb949cda5fc807314"), "roll_no" : 1, "name" : "nahas" }
+
+
+> db.student.find({"roll_no":{$lte:2}}); //sort values less than or equal to 2
+{ "_id" : ObjectId("66277a1eb949cda5fc807314"), "roll_no" : 1, "name" : "nahas" }
+{ "_id" : ObjectId("66277a42b949cda5fc807315"), "roll_no" : 2, "name" : "lijith" }
+
+
+> db.student.find({"roll_no":{$gte:2}}); //sort values greater than or equal to 2
+{ "_id" : ObjectId("66277a42b949cda5fc807315"), "roll_no" : 2, "name" : "lijith" }
+{ "_id" : ObjectId("66277b30b949cda5fc807316"), "roll_no" : 3, "name" : "nayan" }
+{ "_id" : ObjectId("66277c03b949cda5fc807317"), "roll_no" : 4, "name" : "sooryan" }
+
